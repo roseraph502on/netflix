@@ -55,7 +55,7 @@ const AppLayout = () => {
             <InputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              sx={{ width: '200px', fontSize: '1rem',color: '#eee' }}
+              sx={{ width: '20vw', fontSize: '1rem',color: '#eee' }}
             />
           </Box>
         </Toolbar>
