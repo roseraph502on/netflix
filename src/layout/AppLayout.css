@@ -1,0 +1,11 @@
+#nav {
+    width: 100vw;
+    background-color: black;
+}
+.logo{
+    width: 10vw;
+    margin-right: 2vw;
+}
+body{
+    background-color: #ebebeb;
+}
