@@ -37,7 +37,7 @@ const AppLayout = () => {
           {/* 로고 */}
           <img className='logo' src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" 
           onClick={clklogo} />
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
             {/* 메뉴 */}
             {pages.map((page) => (
               <Button
