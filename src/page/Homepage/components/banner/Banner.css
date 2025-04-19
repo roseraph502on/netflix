@@ -1,0 +1,41 @@
+.banner {
+    width: 100vw;
+    height: 55vh;
+    position: relative;        background-size:contain;
+
+}
+
+.banner::before {
+    content: '';
+    background: linear-gradient(to top, black, transparent);
+    position: absolute;
+    left: 0;
+    height: 55vh;
+    width: 100vw;
+}
+
+.bannerText {
+    width: 60vw;
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    color: #aaaaaa;
+}
+
+@media (max-width: 767px) {
+    .banner {
+        width: 100vw;
+        background-size:cover;
+    }
+
+    .bannerText {
+        width: 90vw;
+
+    }
+
+    .bannerText > p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; 
+    }
+}
