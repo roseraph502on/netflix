@@ -1,5 +1,5 @@
 import React from 'react'
-import './banner.css'
+import './Banner.css'
 
 import { usePopularMoviesQuery } from '../../../../hook/usePopularMovies'
 
