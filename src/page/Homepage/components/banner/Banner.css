@@ -1,7 +1,7 @@
 .banner {
     width: 100vw;
     height: 55vh;
-    position: relative;        background-size:contain;
+    position: relative;        background-size:cover;
 
 }
 
@@ -25,11 +25,11 @@
 @media (max-width: 767px) {
     .banner {
         width: 100vw;
-        background-size:cover;
     }
 
     .bannerText {
         width: 90vw;
+        height: 25vh;
 
     }
 

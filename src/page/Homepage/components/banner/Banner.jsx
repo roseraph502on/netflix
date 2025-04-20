@@ -17,7 +17,7 @@ const Banner = () => {
     }
     if (!data || !data.results || data.results.length === 0) {
         return <h2>No data available</h2>;
-    }console.log("bp", data.results[0].backdrop_path)
+    }
     return (
         <Box className='banner'
             sx={{
