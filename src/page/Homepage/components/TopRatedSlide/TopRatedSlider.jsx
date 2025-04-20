@@ -1,5 +1,5 @@
 import React from 'react'
-import './TopRatedSlider.css'
+import '../PoppularMoviesSlide/PopularMoviesSlider.css'
 import 'react-multi-carousel/lib/styles.css';
 
 import Alert from '@mui/material/Alert';
