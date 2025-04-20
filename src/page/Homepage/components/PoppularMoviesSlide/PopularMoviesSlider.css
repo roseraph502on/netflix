@@ -18,7 +18,7 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: flex-end; 
+    align-items: flex-end;
 }
 
 
@@ -30,7 +30,8 @@
     position: relative;
     border-radius: 10px;
 }
-.rank{
+
+.rank {
     margin: 0 2vh;
 }
 
@@ -50,7 +51,7 @@
 
 .moviekeyword {
     margin-right: 1vw;
-    
+
 }
 
 #MovieCard:hover {
@@ -69,6 +70,11 @@
         overflow: hidden;
         height: 230px;
     }
+
+    .rank {
+        font-size: xx-large;
+    }
+
     #MovieCard {
         width: 150px;
         height: 210px;
