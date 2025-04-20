@@ -1,7 +1,8 @@
 .banner {
     width: 100vw;
     height: 55vh;
-    position: relative;        background-size:cover;
+    position: relative;
+    background-size: cover;
 
 }
 
@@ -28,14 +29,19 @@
         height: 45vh;
     }
 
+    .banner::before {
+        height: 45vh;
+
+    }
+
     .bannerText {
         width: 90vw;
         height: 25vh;
     }
 
-    .bannerText > p {
+    .bannerText>p {
         overflow: hidden;
         white-space: nowrap;
-        text-overflow: ellipsis; 
+        text-overflow: ellipsis;
     }
 }
