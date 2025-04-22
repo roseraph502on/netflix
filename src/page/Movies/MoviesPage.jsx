@@ -29,7 +29,7 @@ const MoviesPage = () => {
 
 
   return (
-    <Box sx={{ width: '100%', padding: 2 }}>
+    <Box sx={{ width: '90%', padding: 2 }}>
       <StatusMessage
         isLoading={isLoading}
         isError={isError}
