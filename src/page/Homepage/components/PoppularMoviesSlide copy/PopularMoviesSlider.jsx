@@ -1,22 +1,22 @@
 import React from 'react'
-import '../PoppularMoviesSlide/PopularMoviesSlider.css'
+import './PopularMoviesSlider.css'
 import 'react-multi-carousel/lib/styles.css';
 
 import Alert from '@mui/material/Alert';
 import Carousel from 'react-multi-carousel';
-import MovieCard from "../MovieCard/MovieCard"
+import MovieCard from "../../../../common/MovieCard/MovieCard"
 
-import { useUpcomingMoviesQuery } from "../../../../hook/useUpcomingMovies"
+import { usePopularMoviesQuery } from "../../../../hook/usePopularMovies"
 
 
 const responsive = {
     superLargeDesktop: {
         breakpoint: { max: 4000, min: 3000 },
-        items: 6
+        items: 5
     },
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        items: 5
+        items: 3
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
@@ -29,8 +29,8 @@ const responsive = {
 };
 
 
-const UpcomingSlider = () => {
-    const { data, isLoading, isError, error } = useUpcomingMoviesQuery();
+const PopularMoviesSlider = () => {
+    const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
     if (isLoading) {
         <h2>loading.....</h2>;
@@ -43,7 +43,7 @@ const UpcomingSlider = () => {
 
     return (
         <div id='popularslide'>
-            <h2>Upcoming</h2>
+            <h2>Popular Movies</h2>
 
             <Carousel
                 responsive={responsive}
@@ -55,6 +55,7 @@ const UpcomingSlider = () => {
 
                 {data.results.map((movie, index) =>
                     <div id='pMovies'>
+                        <h1 className='rank'>{index + 1}</h1>
                         <MovieCard movie={movie} index={index} key={index} />
                     </div>
                 )}
@@ -63,4 +64,4 @@ const UpcomingSlider = () => {
     )
 }
 
-export default UpcomingSlider
+export default PopularMoviesSlider

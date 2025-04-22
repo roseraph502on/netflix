@@ -1,9 +1,18 @@
 import React from 'react'
-import Badge from '@mui/material/Badge';
 import Chip from '@mui/material/Chip';
+import { useMovieGenreQuery } from "../../hook/useMovieGenre";
 
 
 const MovieCard = ({ movie }) => {
+    const { data: genreData } = useMovieGenreQuery();
+    const showGenre=(genreIdList)=>{
+        if(!genreData) return []
+        const genreNameList= genreIdList.map((id)=>{
+            const genreObj = genreData.find((genre)=>genre.id === id)
+            return genreObj.name;
+        })
+        return genreNameList;
+    }
     return (
         <div id='MovieCard'
             style={{
@@ -15,8 +24,8 @@ const MovieCard = ({ movie }) => {
                 <div className='card-detail'>
 
                     <h3>{movie.title}</h3>
-                    {movie.genre_ids.map((id) =>
-                        (<Chip className='moviekeyword' label={id} color="success" size="small" />)
+                    {showGenre(movie.genre_ids).map((genre,index) =>
+                        (<Chip className='moviekeyword' key={index} label={genre} color="success" size="small" />)
                     )}
                     <div>{movie.vote_average}</div>
 

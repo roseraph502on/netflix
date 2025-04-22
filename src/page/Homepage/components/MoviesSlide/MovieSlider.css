@@ -1,0 +1,8 @@
+#slide {
+    width: 100vw;
+    overflow: hidden;
+}
+#slide>h2 {
+    font-size: large;
+    color: #fff;
+}
