@@ -5,7 +5,7 @@ import { Alert ,Skeleton } from '@mui/material';
 const StatusMessage = ({ isLoading, isError, error, data }) => {
     if (isLoading) {
         return <Skeleton id='Alert' className='loading'
-        variant="rounded" width="98%" height={200}
+        variant="rounded" 
         sx={{ backgroundColor: 'gray' }}
         />;
     }

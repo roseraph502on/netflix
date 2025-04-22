@@ -9,7 +9,7 @@ const Banner = () => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery();    
     if (isLoading) {
         return <Skeleton id='Alert' className='loading'
-        variant="rectangular" width="100%" height={300}
+        variant="rectangular" width="98%" height="50vh"
         sx={{ backgroundColor: 'gray' }}
         />;
     } if (isError) {

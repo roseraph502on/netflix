@@ -1,8 +1,15 @@
-
-
-.css-31mwe1-MuiButtonBase-root-MuiPaginationItem-root, .css-uukcy9-MuiPaginationItem-root {
-    color: #fff !important;
+.loading{
+    width: 96%;
+    height: 83vh !important;
 }
+.sort >h3{
+    margin:2vh 0 ;
+}
+.css-31mwe1-MuiButtonBase-root-MuiPaginationItem-root, .css-uukcy9-MuiPaginationItem-root,.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon,demo-simple-select-label {
+    color: #fff !important;
+    borderColor: white;
+}
+
 @media (max-width: 767px) {
     MuiButtonBase-root{
        width: 2vw;

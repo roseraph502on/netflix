@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MoviesPage.css'
 import { useSearchMovieQuery } from "../../hook/useSearchMovies"
 
-import { Box, Grid, Pagination, Skeleton } from '@mui/material';
+import { Box, Grid, Pagination, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
 import MovieCard from '../../common/MovieCard/MovieCard';
@@ -19,7 +19,7 @@ const MoviesPage = () => {
   useEffect(() => {
     setPage(1);
     setQuery({ q: keyword, page: '1' });
-    console.log("data",data);
+    console.log("data", data);
   }, [keyword]);
 
   const handleChange = (event, value) => {
@@ -37,37 +37,67 @@ const MoviesPage = () => {
         data={data}
       />
       {!isLoading && !isError && data?.results?.length > 0 && (
-      <Grid 
-      container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid size={3}>
-          필터~
-        </Grid>
-
-        <Grid size={9}>
-          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            {data.results.map((movie) => (
-              <Grid key={movie.id}>
-                <MovieCard movie={movie} />
-              </Grid>
-            ))}
+        <Grid
+          container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid size={2} id="sort" >
+            <h3>filter</h3>     
+            <Box sx={{ minWidth: 120,}}>
+              <FormControl fullWidth>
+                <InputLabel  id="demo-simple-select-label"
+                sx={{ color: 'white' }}>sort</InputLabel>
+                <Select
+                  id="sortselect"
+                  label="sort"
+                  // onChange={}
+                >
+                  <MenuItem value={10}>1</MenuItem>
+                  <MenuItem value={20}>2</MenuItem>
+                  <MenuItem value={30}>2</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label"
+                sx={{ color: 'white' }}>sort</InputLabel>
+                <Select
+                  id="sortselect"
+                  label="sort"
+                  // onChange={}
+                >
+                  <MenuItem value={10}>1</MenuItem>
+                  <MenuItem value={20}>2</MenuItem>
+                  <MenuItem value={30}>2</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
           </Grid>
-          {/* Pagination */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-            <Pagination
-              count={data.total_pages}
-              page={page}
-              onChange={handleChange}
-              color="error"
-              shape="rounded"
-              size="large"
-              showFirstButton
-              showLastButton
-              siblingCount={0}
-            />
-          </Box>
+
+          <Grid size={10}>
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+              {data.results.map((movie) => (
+                <Grid key={movie.id}>
+                  <MovieCard movie={movie} />
+                </Grid>
+              ))}
+            </Grid>
+            {/* Pagination */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+              <Pagination
+                count={data.total_pages}
+                page={page}
+                onChange={handleChange}
+                color="error"
+                shape="rounded"
+                size="large"
+                showFirstButton
+                showLastButton
+                siblingCount={0}
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-       )}
+      )}
     </Box>
   );
 };
