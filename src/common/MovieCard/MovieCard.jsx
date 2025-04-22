@@ -25,11 +25,11 @@ const MovieCard = ({ movie }) => {
 
                     <h3>{movie.title}</h3>
                     {showGenre(movie.genre_ids).map((genre,index) =>
-                        (<Chip className='moviekeyword' key={index} label={genre} color="success" size="small" />)
+                        (<Chip className='moviekeyword' key={index} label={genre} color="warning" size="small" />)
                     )}
                     <div>{movie.vote_average}</div>
 
-                    <Chip label={movie.adult ? "19+" : "safe"} color="error" size="small" />
+                    <Chip label={movie.adult ? "19+" : "safe"} color={movie.adult ? "error" : "success"}size="small" />
 
                 </div>
             </div>

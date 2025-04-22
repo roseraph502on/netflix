@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import './AppLayout.css'
 
 import { Outlet, useNavigate  } from 'react-router-dom';
@@ -13,6 +13,8 @@ import SearchIcon from '@mui/icons-material/Search';
 const AppLayout = () => {
   const navigate = useNavigate();
   const pages = ['Home', 'Movies'];
+  const [keyword,setKeyword]= useState("");
+
 
   const clklogo = (event) =>{
     event.preventDefault();
@@ -28,7 +30,10 @@ const AppLayout = () => {
     }
    
   }
-
+  const serachByKeyword=(event)=>{
+    event.preventDefault()
+    navigate(`/movies?q=${keyword}`)
+  }
 
   return (
     <Box>
@@ -51,11 +56,13 @@ const AppLayout = () => {
           </Box>
           {/* 검색창 */}
           <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: 'rgba(83, 83, 83, 0.55)', borderRadius: 1, padding: '0 8px' ,}}>
-            <SearchIcon sx={{ color: 'red', mr: 1 }} />
+            <SearchIcon sx={{ color: 'red', mr: 1 }} onClick={serachByKeyword}/>
             <InputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
               sx={{ width: '20vw', fontSize: '1rem',color: '#eee' }}
+              value={keyword}
+              onChange={(event)=>setKeyword(event.target.value)}
             />
           </Box>
         </Toolbar>
