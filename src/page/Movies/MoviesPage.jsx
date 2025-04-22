@@ -39,7 +39,7 @@ const MoviesPage = () => {
       {!isLoading && !isError && data?.results?.length > 0 && (
         <Grid
           container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid size={2} id="sort" >
+          <Grid id="filter" size={{ xs: 11, sm: 11, md: 2 }}>
             <h3>filter</h3>     
             <Box sx={{ minWidth: 120,}}>
               <FormControl fullWidth>
@@ -73,7 +73,7 @@ const MoviesPage = () => {
             </Box>
           </Grid>
 
-          <Grid size={10}>
+          <Grid size={{ xs: 11, sm: 12, md: 10 }}>
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
               {data.results.map((movie) => (
                 <Grid key={movie.id}>
