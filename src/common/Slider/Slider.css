@@ -64,9 +64,9 @@
 }
 
 @media (max-width: 767px) {
-    .carousel-container {
+    .swiper {
         overflow: hidden;
-        height: 230px;
+        height: 240px;
     }
 
     .rank {
