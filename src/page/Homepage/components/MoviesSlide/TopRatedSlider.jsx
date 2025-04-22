@@ -2,20 +2,24 @@ import React from 'react'
 import './MovieSlider.css'
 
 import Slider from '../../../../common/Slider/Slider';
+import StatusMessage from '../../../../common/StatusMessage';
 
 import { useTopRatedMoviesQuery } from "../../../../hook/useTopRatedMovies"
 
 const TopRatedSlider = () => {
     const { data, isLoading, isError, error } = useTopRatedMoviesQuery();
 
-    if (isLoading) {
-        return <h2>loading.....</h2>;
-    } if (isError) {
-        return <Alert severity="error">Error occurred: {error?.message}</Alert>;
-    }
     return (
         <div id='slide'>
-           <Slider title='Top Rated'  movies={data.results}/>
+            <StatusMessage
+                isLoading={isLoading}
+                isError={isError}
+                error={error}
+                data={data}
+            />
+            {!isLoading && !isError && data?.results?.length > 0 && (
+                <Slider title='Top Rated' movies={data.results} />
+            )}
         </div>
     )
 }

@@ -3,6 +3,7 @@ import './MovieSlider.css'
 
 import 'swiper/css/bundle';
 import Slider from '../../../../common/Slider/Slider';
+import StatusMessage from '../../../../common/StatusMessage';
 
 
 import Alert from '@mui/material/Alert';
@@ -11,18 +12,21 @@ import { usePopularMoviesQuery } from "../../../../hook/usePopularMovies"
 
 
 
+
 const PopularMoviesSlider = () => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
-    if (isLoading) {
-        return <h2>loading.....</h2>;
-    } if (isError) {
-        return <Alert severity="error">Error occurred: {error?.message}</Alert>;
-    }
-
     return (
         <div id='slide'>
-           <Slider title='Popular'  movies={data.results}/>
+            <StatusMessage
+                isLoading={isLoading}
+                isError={isError}
+                error={error}
+                data={data}
+            />
+            {!isLoading && !isError && data?.results?.length > 0 && (
+                <Slider title='Popular' movies={data.results} />
+            )}
         </div>
     )
 }

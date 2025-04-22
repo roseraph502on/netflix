@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './MoviesPage.css'
 import { useSearchMovieQuery } from "../../hook/useSearchMovies"
 
-import { Box, Grid, Pagination, Alert } from '@mui/material';
+import { Box, Grid, Pagination, Skeleton } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
+
 import MovieCard from '../../common/MovieCard/MovieCard';
+import StatusMessage from '../../common/StatusMessage';
 
 const MoviesPage = () => {
   const [query, setQuery] = useSearchParams();
@@ -25,16 +27,16 @@ const MoviesPage = () => {
     setQuery({ q: keyword, page: value.toString() });
   };
 
-  if (isLoading) {    return <h2 id='Alert'>🙃Loading...🤔</h2>;  }
-  if (isError) {    return <Alert severity="error">Error occurred: {error?.message}</Alert>;  }
-  if (!data?.results || data.results.length === 0) {
-    return <h2 id='Alert'> 😿 Not found 😓</h2>;
-  }
-
-
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
+      <StatusMessage
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+        data={data}
+      />
+      {!isLoading && !isError && data?.results?.length > 0 && (
       <Grid 
       container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid size={3}>
@@ -49,8 +51,7 @@ const MoviesPage = () => {
               </Grid>
             ))}
           </Grid>
-
-          {/* 영화 카드 리스트 바로 아래 Pagination */}
+          {/* Pagination */}
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
             <Pagination
               count={data.total_pages}
@@ -66,6 +67,7 @@ const MoviesPage = () => {
           </Box>
         </Grid>
       </Grid>
+       )}
     </Box>
   );
 };

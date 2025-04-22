@@ -1,12 +1,4 @@
-#Alert{
-    display: flex;
-    width: 100vw;
-    height: 90vh;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 
-}
 
 .css-31mwe1-MuiButtonBase-root-MuiPaginationItem-root, .css-uukcy9-MuiPaginationItem-root {
     color: #fff !important;

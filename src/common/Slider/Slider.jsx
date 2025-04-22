@@ -33,12 +33,12 @@ const Slider = ({title,movies}) => {
                         spaceBetween: 15,
                     },
                     1024: {
-                        slidesPerView: 5,
+                        slidesPerView: 6,
                         spaceBetween: 20,
                     },
                     1440: {
-                        slidesPerView: 5,
-                        spaceBetween: 30,
+                        slidesPerView: 8,
+                        spaceBetween: 10,
                     },
                 }}
             >

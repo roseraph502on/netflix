@@ -5,20 +5,23 @@ import Alert from '@mui/material/Alert';
 
 import { useUpcomingMoviesQuery } from "../../../../hook/useUpcomingMovies"
 import Slider from '../../../../common/Slider/Slider';
+import StatusMessage from '../../../../common/StatusMessage';
 
 
 const UpcomingSlider = () => {
     const { data, isLoading, isError, error } = useUpcomingMoviesQuery();
 
-    if (isLoading) {
-        return <h2>loading.....</h2>;
-    } if (isError) {
-        return  <Alert severity="error">Error occurred: {error?.message}</Alert>;
-    }
-
     return (
         <div id='slide'>
-           <Slider title='Upcoming'  movies={data.results}/>
+            <StatusMessage
+                isLoading={isLoading}
+                isError={isError}
+                error={error}
+                data={data}
+            />
+            {!isLoading && !isError && data?.results?.length > 0 && (
+                <Slider title='Upcoming' movies={data.results} />
+            )}
         </div>
     )
 }

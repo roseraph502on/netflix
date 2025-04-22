@@ -3,13 +3,15 @@ import './Banner.css'
 
 import { usePopularMoviesQuery } from '../../../../hook/usePopularMovies'
 
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
+import { Alert ,Skeleton,Box } from '@mui/material';
 
 const Banner = () => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery();    
     if (isLoading) {
-        return  <h2>loading.....</h2>;
+        return <Skeleton id='Alert' className='loading'
+        variant="rectangular" width="100%" height={300}
+        sx={{ backgroundColor: 'gray' }}
+        />;
     } if (isError) {
         return <Alert severity="error">Error occurred: {error?.message}</Alert>;
     }

@@ -1,0 +1,13 @@
+#Alert{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.loading{
+    margin: 1vw 1vw;
+}
+.notfound{
+    width: 100vw;
+    height: 80vh;
+}
