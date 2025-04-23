@@ -14,6 +14,7 @@ const MoviesPage = () => {
   const initialPage = parseInt(query.get("page")) || 1;
   const [page, setPage] = useState(initialPage);
 
+
   const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page });
 
   useEffect(() => {
@@ -40,34 +41,34 @@ const MoviesPage = () => {
         <Grid
           container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid id="filter" size={{ xs: 12, sm: 12, md: 2 }}>
-            <h3>filter</h3>     
-            <Box sx={{ minWidth: 120,}}>
+            <h3>filter</h3>
+            <Box sx={{ minWidth: 120, }}>
               <FormControl fullWidth>
-                <InputLabel  id="demo-simple-select-label"
-                sx={{ color: 'white' }}>sort</InputLabel>
+                <InputLabel id="demo-simple-select-label"
+                  sx={{ color: 'white' }}>sort</InputLabel>
                 <Select
                   id="sortselect"
                   label="sort"
-                  // onChange={}
+                // onChange={}
                 >
-                  <MenuItem value={10}>1</MenuItem>
-                  <MenuItem value={20}>2</MenuItem>
-                  <MenuItem value={30}>2</MenuItem>
+                  <MenuItem >1</MenuItem>
+                  <MenuItem>2</MenuItem>
+                  <MenuItem >2</MenuItem>
                 </Select>
               </FormControl>
             </Box>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"
-                sx={{ color: 'white' }}>sort</InputLabel>
+                  sx={{ color: 'white' }}>sort</InputLabel>
                 <Select
                   id="sortselect"
                   label="sort"
-                  // onChange={}
+                // onChange={}
                 >
-                  <MenuItem value={10}>1</MenuItem>
-                  <MenuItem value={20}>2</MenuItem>
-                  <MenuItem value={30}>2</MenuItem>
+                  <MenuItem >1</MenuItem>
+                  <MenuItem >2</MenuItem>
+                  <MenuItem>2</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -84,7 +85,7 @@ const MoviesPage = () => {
             {/* Pagination */}
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
               <Pagination
-                count={data.total_pages}
+                count={Math.min(data.total_pages, 500)}
                 page={page}
                 onChange={handleChange}
                 color="error"
