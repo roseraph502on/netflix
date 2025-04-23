@@ -85,14 +85,11 @@ const MoviesPage = () => {
             {/* Pagination */}
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
               <Pagination
+              className='Pagination'
                 count={Math.min(data.total_pages, 500)}
                 page={page}
                 onChange={handleChange}
                 color="error"
-                shape="rounded"
-                size="large"
-                showFirstButton
-                showLastButton
                 siblingCount={0}
               />
             </Box>
