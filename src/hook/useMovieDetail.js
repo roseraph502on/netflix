@@ -1,0 +1,15 @@
+import { useQuery } from "@tanstack/react-query"
+import api from "../utils/api"
+
+const fetchMovieDetail = (id) => {
+      console.log("id",id);
+    return api.get(`movie/${id}`);
+}
+export const useMovieDetailQuery = (id) => {
+    return useQuery({
+        queryKey: ["movie_id",id],
+        queryFn: ()=>fetchMovieDetail(id),
+        select: (result)=>result.data,
+        enabled: !!id, 
+    })
+}

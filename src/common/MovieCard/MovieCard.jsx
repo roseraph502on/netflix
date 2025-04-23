@@ -1,9 +1,11 @@
 import React from 'react'
 import Chip from '@mui/material/Chip';
 import { useMovieGenreQuery } from "../../hook/useMovieGenre";
+import { useNavigate } from "react-router-dom"
 
 
 const MovieCard = ({ movie }) => {
+    const navigate = useNavigate();
     const { data: genreData } = useMovieGenreQuery();
     const showGenre=(genreIdList)=>{
         if(!genreData) return []
@@ -13,6 +15,10 @@ const MovieCard = ({ movie }) => {
         })
         return genreNameList;
     }
+    const movieDetail=({data})=>{
+        console.log("data",movie)
+        navigate(`/movies/${movie.id}`);
+    }
     return (
         <div id='MovieCard'
             style={{
@@ -20,7 +26,7 @@ const MovieCard = ({ movie }) => {
             }}
         >
 
-            <div className='cardhover'>
+            <div className='cardhover'  onClick={movieDetail}>
                 <div className='card-detail'>
 
                     <h3>{movie.title}</h3>

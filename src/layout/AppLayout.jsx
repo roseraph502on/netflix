@@ -22,7 +22,6 @@ const AppLayout = () => {
   }
   const clkmenu = (page, event) =>{
     event.preventDefault();
-    console.log("1:",page,"ek",event);
     if (page === 'Home'){
       navigate(`/`);
     }else {
