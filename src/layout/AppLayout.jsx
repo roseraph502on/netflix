@@ -41,13 +41,13 @@ const AppLayout = () => {
           {/* 로고 */}
           <img className='logo' src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" 
           onClick={clklogo} />
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: 'flex'}}>
             {/* 메뉴 */}
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={(event) => clkmenu(page, event)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', fontSize:{xs:'15px',md:'20px'}}}
               >
                 {page}
               </Button>
@@ -59,7 +59,7 @@ const AppLayout = () => {
             <InputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              sx={{ width: '20vw', fontSize: '1rem',color: '#eee' }}
+              sx={{ width:{xs:'20vw',md :'25vw'}, fontSize:{xs:'15px',md:'20px'} ,color: '#eee' }}
               value={keyword}
               onChange={(event)=>setKeyword(event.target.value)}
             />

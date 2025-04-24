@@ -1,17 +1,19 @@
 #nav {
     width: 100vw;
     background-color: black;
+    padding: 1vh 0;
 }
 .logo{
     width: 10vw;
     margin-right: 2vw;
-}
-body{
 }
 
 @media (max-width: 767px) {
     .logo{
         width: 15vw;
         margin-right: 2vw;
+    }
+    #nav {
+        padding: 0;
     }
   }

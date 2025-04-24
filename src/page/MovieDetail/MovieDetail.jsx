@@ -3,14 +3,14 @@ import "./MovieDetail.css"
 import { useParams } from "react-router-dom"
 import { useMovieDetailQuery } from "../../hook/useMovieDetail"
 
-import {  Grid ,Skeleton,Box } from '@mui/material';
+import { Grid, Skeleton, Box, Alert, Accordion, AccordionSummary, AccordionDetails, Avatar } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Gauge } from '@mui/x-charts/Gauge';
 
 
 const MovieDetail = () => {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useMovieDetailQuery(id);
-  console.log("dta", data);
 
   if (isLoading) {
     return <Skeleton id='Alert' className='loading'
@@ -20,31 +20,48 @@ const MovieDetail = () => {
   } if (isError) {
     return <Alert severity="error">Error occurred: {error?.message}</Alert>;
   }
+
+  const { movie, reviews } = data;
+  console.log("movie", movie);
+  console.log("reviews", reviews);
   return (
     <Grid id="detail" container spacing={2}>
-      <Grid className="m-d-img" size={4}>
-      <Box  sx={{
-        backgroundImage: `url(https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center', 
-        width:'23vw',
-        height:'70vh',
-        borderRadius:'10px',
-      }}
-      ></Box>
+      <Grid className="m-d-img" size={{ xs: 12, md: 4, lg: 3 }}>
+        <Box className='mvimg' sx={{
+          backgroundImage: `url(https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.movie.poster_path})`,
+          width: { xs: '90vw', md: '320px', lg: '400px' },
+          height: { xs: '140vw', md: '500px', lg: '600px' },
+        }}
+        ></Box>
       </Grid>
-      <Grid size={8} container spacing={1}>
-        <Grid size={12}><h1>{data.title}</h1></Grid>
+      {/* 설명란 */}
+      <Grid size={{ xs: 12, md: 8, lg: 9 }} container spacing={1}>
+        <Grid size={12}><h1>{data.movie.title}</h1></Grid>
         <Grid size={12}>
-          {data.release_date}  🔴  {data.genres?.map((genre) => genre.name).join(', ')}  🔴  {data.runtime} 분
+          {data.movie.release_date}  🔴  {data.movie.genres?.map((genre) => genre.name).join(', ')}  🔴  {data.movie.runtime} 분
         </Grid>
-        <Grid size={12} sx={{display: 'flex',alignItems:'center',}}>
-        <Gauge width={100} height={100} value={Math.round(data.vote_average * 10)} /> 📃 {data.vote_count}
+        <Grid size={12} sx={{ display: 'flex', alignItems: 'center', }}>
+          <Gauge width={100} height={100} value={Math.round(data.movie.vote_average * 10)} /> 📃 {data.movie.vote_count}
         </Grid>
-        <Grid size={12}>{data.tagline}</Grid>
-        <Grid size={12}><h2>overview</h2>{data.overview}</Grid>
-        <Grid size={12}><a href={data.homepage}>🏠</a></Grid>
+        <Grid size={12}>{data.movie.tagline}</Grid>
+        <Grid size={12}><h2>overview</h2>{data.movie.overview}</Grid>
+        <Grid size={12}><a href={data.movie.homepage}>🏠</a></Grid>
 
+      </Grid>
+      <Grid size={12} className='review'>
+        <h2>review  ({data.reviews.total_results})</h2>
+        {data.reviews.results.map((results, index) =>
+        (
+          <Accordion key={index}>
+            <AccordionSummary className='review'
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            ><Avatar></Avatar> <h3>{results.author}</h3>
+            </AccordionSummary>
+            <AccordionDetails>{results.content}</AccordionDetails>
+          </Accordion>
+        ))}
       </Grid>
     </Grid>
   )

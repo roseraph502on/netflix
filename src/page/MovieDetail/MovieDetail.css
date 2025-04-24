@@ -1,3 +1,9 @@
 #detail{
     padding: 5vw;
 }
+.mvimg{
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+}
+#detail h1{ margin: 1vh 0}
