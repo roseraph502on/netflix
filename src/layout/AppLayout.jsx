@@ -29,8 +29,9 @@ const AppLayout = () => {
     }
    
   }
-  const serachByKeyword=(event)=>{
+  const searchByKeyword=(event)=>{
     event.preventDefault()
+    console.log("keyword",keyword);
     navigate(`/movies?q=${keyword}`)
   }
 
@@ -55,13 +56,16 @@ const AppLayout = () => {
           </Box>
           {/* 검색창 */}
           <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: 'rgba(83, 83, 83, 0.55)', borderRadius: 1, padding: '0 8px' ,}}>
-            <SearchIcon sx={{ color: 'red', mr: 1 }} onClick={serachByKeyword}/>
+            <SearchIcon sx={{ color: 'red', mr: 1 }} onClick={searchByKeyword}/>
             <InputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
               sx={{ width:{xs:'20vw',md :'25vw'}, fontSize:{xs:'15px',md:'20px'} ,color: '#eee' }}
               value={keyword}
               onChange={(event)=>setKeyword(event.target.value)}
+              onKeyDown={(event) => {if (event.key === 'Enter') {
+                searchByKeyword(event);
+                  }}}
             />
           </Box>
         </Toolbar>
