@@ -9,9 +9,7 @@ const SearchMovies = ({ data, page, onPageChange }) => {
     <>
       <Grid container spacing={2}>
         {data.results.map((movie) => (
-          <Grid key={movie.id} size={{ xs: 6, sm: 4, md: 3 }}>
-            <MovieCard movie={movie} />
-          </Grid>
+            <MovieCard key={movie.id} movie={movie} />
         ))}
       </Grid>
 

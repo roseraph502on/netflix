@@ -11,11 +11,8 @@ const fetchSearchMovie = async ({ keyword, page, genreId, popularValue }) => {
       if (genreId) {
         url += `&with_genres=${genreId}`;
       }
-    }
-    console.log("API 호출 URL:", url);
-  
+    }  
     const response = await api.get(url);
-    console.log("API 응답 데이터:", response.data);
     return response;
   };
   
