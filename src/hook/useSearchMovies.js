@@ -2,11 +2,23 @@ import { useQuery } from "@tanstack/react-query"
 import api from "../utils/api"
 
 
-const fetchSearchMovie = ({ keyword, page, genreId, popularValue }) => {
-    return keyword
-        ? api.get(`/search/movie?query=${keyword}&page=${page}`)
-        : api.get(`/discover/movie?page=${page}&with_genres=${genreId}&sort_by=${popularValue}`)
-}
+const fetchSearchMovie = async ({ keyword, page, genreId, popularValue }) => {
+    let url = "";
+    if (keyword) {
+      url = `/search/movie?query=${encodeURIComponent(keyword)}&page=${page}`;
+    } else {
+      url = `/discover/movie?page=${page}&sort_by=${popularValue}`;
+      if (genreId) {
+        url += `&with_genres=${genreId}`;
+      }
+    }
+    console.log("API 호출 URL:", url);
+  
+    const response = await api.get(url);
+    console.log("API 응답 데이터:", response.data);
+    return response;
+  };
+  
 export const useSearchMovieQuery = ({ keyword, page, genreId, popularValue}) => {
     return useQuery({
         queryKey: ["movie-search",{ keyword, page, genreId, popularValue}],

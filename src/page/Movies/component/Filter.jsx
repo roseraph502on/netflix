@@ -1,61 +1,60 @@
-import React, { useState } from 'react';
-import '../MoviesPage.css';
-
-import { Box, InputLabel, MenuItem, FormControl, Select, ButtonGroup, Button, Grid } from '@mui/material';
-
+import React from "react";
+import { Box, FormControl, InputLabel, Select, MenuItem, ButtonGroup, Button } from "@mui/material";
 import { useMovieGenreQuery } from "../../../hook/useMovieGenre";
 
-const Filter = () => {
-    const { data } = useMovieGenreQuery();
-    const [selectedGenre, setSelectedGenre] = useState(null); // 선택된 장르 id 상태
+const Filter = ({ selectedGenre, setSelectedGenre, selectedSort, setSelectedSort }) => {
+  const { data, isLoading, isError } = useMovieGenreQuery();
 
-    const genreClk = (value) => {
-        setSelectedGenre(value);
-    };
+  if (isLoading) return <div>Loading genres...</div>;
+  if (isError) return <div>Failed to load genres</div>;
 
-    return (
-        <Box>
-            <Box className='box'>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label" sx={{ color: 'white' }}>sort</InputLabel>
-                    <Select
-                        id="sortselect"
-                        label="sort"
-                    // onChange={}
-                    >
-                        <MenuItem value="popular">Popular</MenuItem>
-                        <MenuItem value="latest">Latest</MenuItem>
-                        <MenuItem value="release_date">Release Date</MenuItem>
-                        <MenuItem value="vote_average">Rating</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
-            <Grid container rowSpacing={2} className='box'>
-                <Grid size={12} display='flex'>
-                    <h2>filter</h2>
-                    <Button
-                        color='error'
-                        variant={selectedGenre === null ? 'contained' : 'outlined'}
-                        onClick={() => setSelectedGenre(null)}
-                    >All</Button>
-                </Grid>
-                <Grid size={12}>
-                    {data?.map((genre) => (
-                        <Button
-                            key={genre.id}
-                            value={genre.id}
-                            color='error'
-                            variant={selectedGenre === genre.id ? 'contained' : 'outlined'}
-                            onClick={() => genreClk(genre.id)}
-                            sx={{ minWidth: 'fit-content' }}
-                        >
-                            {genre.name}
-                        </Button>
-                    ))}
-                </Grid>
-            </Grid>
-        </Box>
-    );
+  const genres = data?.genres || [];
+
+  const sortOptions = [
+    { label: "Popular", value: "popular" },
+    { label: "Latest", value: "latest" },
+    { label: "Rating", value: "vote_average" },
+  ];
+
+  return (
+    <Box>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel id="sort-select-label">Sort</InputLabel>
+        <Select
+          labelId="sort-select-label"
+          value={selectedSort}
+          label="Sort"
+          onChange={(e) => setSelectedSort(e.target.value)}
+        >
+          {sortOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <Box variant="outlined"  aria-label="genre filter" sx={{ flexWrap: "wrap" }}>
+        <Button
+        color="error"
+          variant={selectedGenre === "all" ? "contained" : "outlined"}
+          onClick={() => setSelectedGenre("all")}
+          sx={{ margin: 0.5 }}
+        > All </Button>
+        {data.map((genre) => (
+          <Button
+          color="error"
+            key={genre.id}
+            variant={selectedGenre === genre.id.toString() ? "contained" : "outlined"}
+            onClick={() => setSelectedGenre(genre.id.toString())}
+            sx={{ margin: 0.5 }}
+          >
+            {genre.name}
+          </Button>
+        ))}
+      </Box>
+    </Box>
+  );
 };
 
 export default Filter;

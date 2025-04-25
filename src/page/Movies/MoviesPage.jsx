@@ -1,76 +1,95 @@
-import React, { useState, useEffect } from 'react';
-import './MoviesPage.css'
-import { useSearchMovieQuery } from "../../hook/useSearchMovies"
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Box, Grid } from "@mui/material";
 
-import { Box, Grid, Pagination } from '@mui/material';
-import { useSearchParams } from 'react-router-dom';
+import Filter from "./component/Filter";
+import SearchMovies from "./component/SearchMovies";
+import FilteringMovies from "./component/FilteringMovies";
+import StatusMessage from "../../common/StatusMessage";
 
-import Filter from './component/Filter';
-import StatusMessage from '../../common/StatusMessage';
-import SearchMovies from './component/SearchMovies';
-import FilteringMovies from './component/FilteringMovies';
+import { useSearchMovieQuery } from "../../hook/useSearchMovies";
+
+const sortKeyMap = {
+  popular: "popularity.desc",
+  latest: "release_date.desc",
+  release_date: "primary_release_date.desc",
+  vote_average: "vote_average.desc",
+};
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const keyword = searchParams.get('q') || '';
-  const page = parseInt(searchParams.get('page')) || 1;
-  const genre = searchParams.get('genre') || 'all';
-  const sort = searchParams.get('sort') || 'popular';
+  const keyword = searchParams.get("q") || "";
+  const pageFromUrl = parseInt(searchParams.get("page")) || 1;
+  const genreFromUrl = searchParams.get("genre") || "all";
+  const sortFromUrl = searchParams.get("sort") || "popular";
 
-  const [selectedGenre, setSelectedGenre] = useState(genre);
-  const [selectedSort, setSelectedSort] = useState(sort);
-  const [currentPage, setCurrentPage] = useState(page);
+  const [page, setPage] = useState(pageFromUrl);
+  const [selectedGenre, setSelectedGenre] = useState(genreFromUrl);
+  const [selectedSort, setSelectedSort] = useState(sortFromUrl);
 
-  // URL 쿼리가 바뀌면 상태도 동기화
   useEffect(() => {
-    setSelectedGenre(genre);
-    setSelectedSort(sort);
-    setCurrentPage(page);
-  }, [genre, sort, page]);
+    setPage(pageFromUrl);
+    setSelectedGenre(genreFromUrl);
+    setSelectedSort(sortFromUrl);
+    console.log("p",pageFromUrl,genreFromUrl,sortFromUrl)
+  }, [pageFromUrl, genreFromUrl, sortFromUrl]);
 
-  // 상태 변경 시 URL 업데이트
   useEffect(() => {
     const params = {};
     if (keyword) params.q = keyword;
-    if (currentPage) params.page = currentPage.toString();
-    if (selectedGenre && selectedGenre !== 'all') params.genre = selectedGenre;
-    if (selectedSort && selectedSort !== 'popular') params.sort = selectedSort;
+    params.page = page.toString();
+    if (selectedGenre !== "all") params.genre = selectedGenre;
+    if (selectedSort !== "popular") params.sort = selectedSort;
 
     setSearchParams(params);
-  }, [keyword, currentPage, selectedGenre, selectedSort, setSearchParams]);
+  }, [keyword, page, selectedGenre, selectedSort, setSearchParams]);
 
   const handlePageChange = (event, value) => {
-    setCurrentPage(value);
+    setPage(value);
   };
 
-  return (
-    <Box sx={{ width: '96vw', padding: '2vw' }}>
-      <StatusMessage
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-        data={data}
-      />
+  const { data, isLoading, isError, error } = useSearchMovieQuery({
+    keyword,
+    page,
+    genreId: selectedGenre === "all" ? null : selectedGenre,
+    popularValue: sortKeyMap[selectedSort],
+  });
+  console.log("data",data)
 
-      <Grid
-        container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid id="filter" size={{ xs: 12, sm: 12, md: 3 }}>
+  return (
+    <Box sx={{ width: "96vw", padding: "2vw" }}>
+      <StatusMessage isLoading={isLoading} isError={isError} error={error} data={data} />
+
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Filter
             selectedGenre={selectedGenre}
             setSelectedGenre={setSelectedGenre}
-            sortKey={sortKey}
-            setSortKey={setSortKey}
+            selectedSort={selectedSort}
+            setSelectedSort={setSelectedSort}
           />
         </Grid>
-
-        <Grid size={{ xs: 12, sm: 12, md: 9 }}>
-
+        <Grid size={{ xs: 12, md: 9 }}>
+          {keyword ? (
+            <SearchMovies
+              keyword={keyword}
+              page={page}
+              genreId={selectedGenre === "all" ? null : selectedGenre}
+              popularValue={sortKeyMap[selectedSort]}
+              onPageChange={handlePageChange}
+              data={data}
+            />
+          ) : (
+            <FilteringMovies
+              page={page}
+              genreId={selectedGenre === "all" ? null : selectedGenre}
+              popularValue={sortKeyMap[selectedSort]}
+              onPageChange={handlePageChange}
+              data={data}
+            />
+          )}
         </Grid>
-
-        {keyword
-          ? <SearchMovies keyword={keyword}/>
-          : <FilteringMovies  />}
       </Grid>
     </Box>
   );
