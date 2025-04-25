@@ -3,7 +3,7 @@
     height: 55vh;
     position: relative;
     background-size: contain;
-
+    margin-bottom: 2vw;
 }
 
 .banner::before {
