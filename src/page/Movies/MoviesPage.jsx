@@ -11,31 +11,37 @@ import SearchMovies from './component/SearchMovies';
 import FilteringMovies from './component/FilteringMovies';
 
 const MoviesPage = () => {
-  const [query, setQuery] = useSearchParams();
-  const keyword = query.get("q") || '';
-  const initialPage = parseInt(query.get("page")) || 1;
-  const [page, setPage] = useState(initialPage);
-  const [sortKey, setSortKey] = useState('popular'); // 기본 정렬값
-  const [selectedGenre, setSelectedGenre] = useState('all'); // 기본 장르 필터
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const sortKeyMap = {
-    popular: 'popularity.desc',
-    latest: 'release_date.desc',
-    release_date: 'primary_release_date.desc',
-    vote_average: 'vote_average.desc'
-  };  
+  const keyword = searchParams.get('q') || '';
+  const page = parseInt(searchParams.get('page')) || 1;
+  const genre = searchParams.get('genre') || 'all';
+  const sort = searchParams.get('sort') || 'popular';
 
+  const [selectedGenre, setSelectedGenre] = useState(genre);
+  const [selectedSort, setSelectedSort] = useState(sort);
+  const [currentPage, setCurrentPage] = useState(page);
 
-  const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page });
+  // URL 쿼리가 바뀌면 상태도 동기화
   useEffect(() => {
-    setPage(1);
-    setQuery({ q: keyword, page: '1' });
-    console.log("data", data);
-  }, [keyword]);
+    setSelectedGenre(genre);
+    setSelectedSort(sort);
+    setCurrentPage(page);
+  }, [genre, sort, page]);
 
-  const handleChange = (event, value) => {
-    setPage(value);
-    setQuery({ q: keyword, page: value.toString() });
+  // 상태 변경 시 URL 업데이트
+  useEffect(() => {
+    const params = {};
+    if (keyword) params.q = keyword;
+    if (currentPage) params.page = currentPage.toString();
+    if (selectedGenre && selectedGenre !== 'all') params.genre = selectedGenre;
+    if (selectedSort && selectedSort !== 'popular') params.sort = selectedSort;
+
+    setSearchParams(params);
+  }, [keyword, currentPage, selectedGenre, selectedSort, setSearchParams]);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
   };
 
   return (

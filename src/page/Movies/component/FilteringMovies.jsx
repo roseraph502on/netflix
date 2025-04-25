@@ -1,36 +1,41 @@
-import React from 'react'
-
+import React from 'react';
 import { Box, Grid, Pagination } from '@mui/material';
-
 import MovieCard from '../../../common/MovieCard/MovieCard';
-import { useSearchMovieQuery } from "../../../hook/useSearchMovies"
+import { useSearchMovieQuery } from '../../../hook/useSearchMovies';
 
-const filteringMovies = () => {
-  const { data } = useSearchMovieQuery({ keyword, page, genreId, popularValue });
-  console.log("fm",data);
+const FilteringMovies = ({ page, genreId, popularValue, onPageChange }) => {
+  // keyword 없이 discover API 호출
+  const { data, isLoading, isError } = useSearchMovieQuery({
+    keyword: null,
+    page,
+    genreId,
+    popularValue,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred</div>;
 
   return (
     <>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
+      <Grid container spacing={2}>
         {data.results.map((movie) => (
-          <Grid key={movie.id}>
+          <Grid item key={movie.id} xs={6} sm={4} md={3}>
             <MovieCard movie={movie} />
           </Grid>
         ))}
       </Grid>
-      {/* Pagination */}
+
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
         <Pagination
-          className='Pagination'
           count={Math.min(data.total_pages, 500)}
           page={page}
-          onChange={handleChange}
+          onChange={onPageChange}
           color="error"
           siblingCount={0}
         />
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default filteringMovies
+export default FilteringMovies;
