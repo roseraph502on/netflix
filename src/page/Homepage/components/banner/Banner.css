@@ -2,7 +2,7 @@
     width: 100vw;
     height: 55vh;
     position: relative;
-    background-size: cover;
+    background-size: contain;
 
 }
 
@@ -27,6 +27,7 @@
     .banner {
         width: 100vw;
         height: 45vh;
+        background-size: cover;
     }
 
     .banner::before {
@@ -37,8 +38,11 @@
     .bannerText {
         width: 90vw;
         height: 25vh;
+        padding: 5vw;
     }
-
+    .bannerText > h1 {
+        margin-bottom: 0;
+    }
     .bannerText>p {
         overflow: hidden;
         white-space: nowrap;

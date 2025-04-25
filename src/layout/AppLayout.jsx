@@ -48,7 +48,7 @@ const AppLayout = () => {
               <Button
                 key={page}
                 onClick={(event) => clkmenu(page, event)}
-                sx={{ my: 2, color: 'white', display: 'block', fontSize:{xs:'15px',md:'20px'}}}
+                sx={{ my: 2, color: 'white', display: 'block', fontSize:{xs:'12px',md:'20px'}}}
               >
                 {page}
               </Button>
