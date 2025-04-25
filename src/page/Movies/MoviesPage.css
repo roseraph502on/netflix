@@ -2,8 +2,16 @@
     width: 96%;
     height: 83vh !important;
 }
-.filter >h3{
-    margin:2vh 0 ;
+#filter{
+    background-color: rgba(86, 86, 86, 0.507);
+    padding: 1vw;
+    border-radius: 5px;
+}
+#filter .box{
+    margin-bottom: 2vw;
+    padding: 1vw;
+    background-color: black;
+    border-radius: 5px;
 }
 .review{
     width: 90vw;
