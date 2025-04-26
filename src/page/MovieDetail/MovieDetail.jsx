@@ -43,16 +43,16 @@ const MovieDetail = () => {
 
   return (
     <Grid id="detail" container spacing={2}>
-      <Grid className="m-d-img" size={{ xs: 12, md: 4, lg: 3 }}>
+      <Grid className="m-d-img" size={{ xs: 12, md: 4 }}>
         <Box className='mvimg' sx={{
           backgroundImage: `url(https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.movie.poster_path})`,
-          width: { xs: '90vw', md: '280px', lg: '400px' },
-          height: { xs: '140vw', md: '440px', lg: '600px' },
+          width: { xs: '90vw', md:'27vw' },
+          height: { xs: '140vw', md: '39vw' },
         }}
         ></Box>
       </Grid>
       {/* 설명란 */}
-      <Grid size={{ xs: 12, md: 8, lg: 9 }} container spacing={1}>
+      <Grid size={{ xs: 12, md: 7 }} container spacing={1}>
         <Grid size={12}><h1>{data.movie.title}</h1></Grid>
         <Grid size={12}>
           {data.movie.release_date}  🔴  {data.movie.genres?.map((genre) => genre.name).join(', ')}  🔴  {data.movie.runtime} 분
