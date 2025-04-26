@@ -13,34 +13,21 @@ const Slider = ({title,movies}) => {
     <div>
          <h2>{title}</h2>
             <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
+                modules={[Navigation, Pagination, Autoplay ,]}
                 loop={true}
                 spaceBetween={50}
                 slidesPerView={5}
-                navigation
                 pagination={{ clickable: true }}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
                   }}
-                breakpoints={{
-                    320: {
-                        slidesPerView: 2,
-                        spaceBetween: 10,
-                    },
-                    640: {
-                        slidesPerView: 4,
-                        spaceBetween: 15,
-                    },
-                    1024: {
-                        slidesPerView: 6,
-                        spaceBetween: 20,
-                    },
-                    1440: {
-                        slidesPerView: 8,
-                        spaceBetween: 10,
-                    },
-                }}
+                  breakpoints={{
+                    320: { slidesPerView: 2, spaceBetween: 1, },
+                    640: { slidesPerView: 4, spaceBetween: 15, },
+                    1024: { slidesPerView: 6, spaceBetween: 20 },
+                    1440: { slidesPerView: 8, spaceBetween: 10 },
+                  }}
             >
                 {movies.map((movie, index) =>
                     <SwiperSlide id='Movies'>

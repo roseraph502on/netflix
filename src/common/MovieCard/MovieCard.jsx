@@ -19,10 +19,13 @@ const MovieCard = ({ movie }) => {
         console.log("data",movie)
         navigate(`/movies/${movie.id}`);
     }
+    const posterUrl = movie.poster_path
+    ? `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`
+    : "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FZ4Kox%2FbtsNCpX8yYV%2FENMaOKHkufAKksZUk9eBP1%2Fimg.png";
     return (
         <div id='MovieCard'
             style={{
-                backgroundImage: "url(" + `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}` + ")"
+                backgroundImage: `url(${posterUrl})`,
             }}
         >
 
